@@ -1,6 +1,6 @@
 services:
   config-server:
-    image: dh/parcial-final-config-server:latest
+    image: parcial-final-config-server:latest
     container_name: parcial-final-config-server
     build: ./config-server
     ports:
@@ -8,7 +8,7 @@ services:
     depends_on:
       - zipkin
   eureka-server:
-    image: dh/parcial-final-eureka-server:latest
+    image: parcial-final-eureka-server:latest
     container_name: parcial-final-eureka-server
     build: ./eureka-server
     ports:
@@ -17,7 +17,7 @@ services:
       - config-server
       - zipkin
   catalog-service:
-    image: dh/parcial-final-eureka-server:latest
+    image: parcial-final-eureka-server:latest
     container_name: parcial-final-catalog-service
     build: ./catalog-service
     ports:
@@ -29,7 +29,7 @@ services:
       - rabbitmq
       - catalog-database
   movies-service:
-    image: dh/parcial-final-movies-service:latest
+    image: parcial-final-movies-service:latest
     container_name: parcial-final-movies-service
     build: ./movie-service
     ports:
@@ -41,7 +41,7 @@ services:
       - rabbitmq
       - movies-database
   series-service:
-    image: dh/parcial-final-series-service:latest
+    image: parcial-final-series-service:latest
     container_name: parcial-final-series-service
     build: ./series-service
     ports:
@@ -63,6 +63,16 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+  api-gateway:
+    image: parcial-final-api-gateway:latest
+    container_name: parcial-final-api-gateway
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+      - zipkin
+      - eureka-server
   movies-database:
     image: bitnami/mysql:latest
     container_name: movies-db
