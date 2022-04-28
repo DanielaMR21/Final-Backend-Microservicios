@@ -25,13 +25,13 @@ public class Listener {
 
     @RabbitListener(queues = {"${queue.movie.name}"})
     public void receive(@Payload MovieDto movieDto){
-        log.info("Se guarda la pelicula con titulo ",movieDto.getName());
+        log.info("Se guarda la pelicula con titulo {} ",movieDto.getName());
         movieDtoService.saveMovie(movieDto);
     }
 
     @RabbitListener(queues = {"${queue.serie.name}"})
     public void receive(@Payload SerieDto serieDto){
-        log.info("Se guardo la serie con titulo ",serieDto.getName());
+        log.info("Se guardo la serie con titulo {} ",serieDto.getName());
         serieDtoService.saveSerie(serieDto);
     }
 }

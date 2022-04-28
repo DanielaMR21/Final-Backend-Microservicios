@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/fallback")
-public class BackController {
+public class FallBackController {
     @CircuitBreaker(name = "catalogService")
     @GetMapping("/catalog")
     public ResponseEntity<String> catalogFallback() {
